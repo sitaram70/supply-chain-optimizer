@@ -1,0 +1,74 @@
+[
+    {
+        "node_id": "store1",
+        "product_type": "cpu",
+        "demand": "500",
+        "revenue_per_unit": "500"
+    },
+    {
+        "node_id": "store1",
+        "product_type": "gpu",
+        "demand": "400",
+        "revenue_per_unit": "2500"
+    },
+    {
+        "node_id": "store2",
+        "product_type": "cpu",
+        "demand": "600",
+        "revenue_per_unit": "545"
+    },
+    {
+        "node_id": "store2",
+        "product_type": "gpu",
+        "demand": "500",
+        "revenue_per_unit": "2450"
+    },
+    {
+        "node_id": "store3",
+        "product_type": "cpu",
+        "demand": "700",
+        "revenue_per_unit": "560"
+    },
+    {
+        "node_id": "store3",
+        "product_type": "gpu",
+        "demand": "600",
+        "revenue_per_unit": "2550"
+    },
+    {
+        "node_id": "store4",
+        "product_type": "cpu",
+        "demand": "450",
+        "revenue_per_unit": "540"
+    },
+    {
+        "node_id": "store4",
+        "product_type": "gpu",
+        "demand": "350",
+        "revenue_per_unit": "2475"
+    },
+    {
+        "node_id": "store5",
+        "product_type": "cpu",
+        "demand": "580",
+        "revenue_per_unit": "555"
+    },
+    {
+        "node_id": "store5",
+        "product_type": "gpu",
+        "demand": "480",
+        "revenue_per_unit": "2525"
+    },
+    {
+        "node_id": "store6",
+        "product_type": "cpu",
+        "demand": "650",
+        "revenue_per_unit": "550"
+    },
+    {
+        "node_id": "store6",
+        "product_type": "gpu",
+        "demand": "550",
+        "revenue_per_unit": "2500"
+    }
+]

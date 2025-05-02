@@ -1,0 +1,142 @@
+[
+    {
+        "node_id": "fab1",
+        "node_type": "supplier",
+        "product_type": "cpu",
+        "capacity": "1150",
+        "cost_per_unit": "280"
+    },
+    {
+        "node_id": "fab2",
+        "node_type": "supplier",
+        "product_type": "cpu",
+        "capacity": "1380",
+        "cost_per_unit": "295"
+    },
+    {
+        "node_id": "fab3",
+        "node_type": "supplier",
+        "product_type": "cpu",
+        "capacity": "1265",
+        "cost_per_unit": "275"
+    },
+    {
+        "node_id": "fab4",
+        "node_type": "supplier",
+        "product_type": "cpu",
+        "capacity": "1420",
+        "cost_per_unit": "310"
+    },
+    {
+        "node_id": "fab5",
+        "node_type": "supplier",
+        "product_type": "cpu",
+        "capacity": "1180",
+        "cost_per_unit": "265"
+    },
+    {
+        "node_id": "fab6",
+        "node_type": "supplier",
+        "product_type": "cpu",
+        "capacity": "1340",
+        "cost_per_unit": "340"
+    },
+    {
+        "node_id": "fab1",
+        "node_type": "supplier",
+        "product_type": "gpu",
+        "capacity": "1035",
+        "cost_per_unit": "1850"
+    },
+    {
+        "node_id": "fab2",
+        "node_type": "supplier",
+        "product_type": "gpu",
+        "capacity": "1150",
+        "cost_per_unit": "1920"
+    },
+    {
+        "node_id": "fab3",
+        "node_type": "supplier",
+        "product_type": "gpu",
+        "capacity": "1090",
+        "cost_per_unit": "1680"
+    },
+    {
+        "node_id": "fab4",
+        "node_type": "supplier",
+        "product_type": "gpu",
+        "capacity": "1250",
+        "cost_per_unit": "1890"
+    },
+    {
+        "node_id": "fab5",
+        "node_type": "supplier",
+        "product_type": "gpu",
+        "capacity": "980",
+        "cost_per_unit": "1750"
+    },
+    {
+        "node_id": "fab6",
+        "node_type": "supplier",
+        "product_type": "gpu",
+        "capacity": "1180",
+        "cost_per_unit": "2100"
+    },
+    {
+        "node_id": "assembly1",
+        "node_type": "processor",
+        "product_type": "cpu",
+        "capacity": "1150",
+        "cost_per_unit": "120"
+    },
+    {
+        "node_id": "assembly2",
+        "node_type": "processor",
+        "product_type": "cpu",
+        "capacity": "1250",
+        "cost_per_unit": "125"
+    },
+    {
+        "node_id": "assembly3",
+        "node_type": "processor",
+        "product_type": "cpu",
+        "capacity": "980",
+        "cost_per_unit": "115"
+    },
+    {
+        "node_id": "assembly4",
+        "node_type": "processor",
+        "product_type": "cpu",
+        "capacity": "1180",
+        "cost_per_unit": "135"
+    },
+    {
+        "node_id": "assembly1",
+        "node_type": "processor",
+        "product_type": "gpu",
+        "capacity": "920",
+        "cost_per_unit": "450"
+    },
+    {
+        "node_id": "assembly2",
+        "node_type": "processor",
+        "product_type": "gpu",
+        "capacity": "850",
+        "cost_per_unit": "460"
+    },
+    {
+        "node_id": "assembly3",
+        "node_type": "processor",
+        "product_type": "gpu",
+        "capacity": "1050",
+        "cost_per_unit": "420"
+    },
+    {
+        "node_id": "assembly4",
+        "node_type": "processor",
+        "product_type": "gpu",
+        "capacity": "890",
+        "cost_per_unit": "495"
+    }
+]

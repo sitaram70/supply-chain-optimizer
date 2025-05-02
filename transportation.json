@@ -1,0 +1,674 @@
+[
+    {
+        "origin": "fab1",
+        "destination": "assembly1",
+        "product_type": "cpu",
+        "cost_per_unit": "15",
+        "capacity": "575"
+    },
+    {
+        "origin": "fab1",
+        "destination": "assembly2",
+        "product_type": "cpu",
+        "cost_per_unit": "16",
+        "capacity": "630"
+    },
+    {
+        "origin": "fab1",
+        "destination": "assembly3",
+        "product_type": "cpu",
+        "cost_per_unit": "17",
+        "capacity": "540"
+    },
+    {
+        "origin": "fab1",
+        "destination": "assembly4",
+        "product_type": "cpu",
+        "cost_per_unit": "15",
+        "capacity": "590"
+    },
+    {
+        "origin": "fab2",
+        "destination": "assembly1",
+        "product_type": "cpu",
+        "cost_per_unit": "15",
+        "capacity": "600"
+    },
+    {
+        "origin": "fab2",
+        "destination": "assembly2",
+        "product_type": "cpu",
+        "cost_per_unit": "17",
+        "capacity": "620"
+    },
+    {
+        "origin": "fab2",
+        "destination": "assembly3",
+        "product_type": "cpu",
+        "cost_per_unit": "16",
+        "capacity": "580"
+    },
+    {
+        "origin": "fab2",
+        "destination": "assembly4",
+        "product_type": "cpu",
+        "cost_per_unit": "18",
+        "capacity": "610"
+    },
+    {
+        "origin": "fab3",
+        "destination": "assembly1",
+        "product_type": "cpu",
+        "cost_per_unit": "16",
+        "capacity": "590"
+    },
+    {
+        "origin": "fab3",
+        "destination": "assembly2",
+        "product_type": "cpu",
+        "cost_per_unit": "15",
+        "capacity": "610"
+    },
+    {
+        "origin": "fab3",
+        "destination": "assembly3",
+        "product_type": "cpu",
+        "cost_per_unit": "17",
+        "capacity": "570"
+    },
+    {
+        "origin": "fab3",
+        "destination": "assembly4",
+        "product_type": "cpu",
+        "cost_per_unit": "16",
+        "capacity": "600"
+    },
+    {
+        "origin": "fab4",
+        "destination": "assembly1",
+        "product_type": "cpu",
+        "cost_per_unit": "17",
+        "capacity": "620"
+    },
+    {
+        "origin": "fab4",
+        "destination": "assembly2",
+        "product_type": "cpu",
+        "cost_per_unit": "16",
+        "capacity": "640"
+    },
+    {
+        "origin": "fab4",
+        "destination": "assembly3",
+        "product_type": "cpu",
+        "cost_per_unit": "15",
+        "capacity": "550"
+    },
+    {
+        "origin": "fab4",
+        "destination": "assembly4",
+        "product_type": "cpu",
+        "cost_per_unit": "17",
+        "capacity": "580"
+    },
+    {
+        "origin": "fab5",
+        "destination": "assembly1",
+        "product_type": "cpu",
+        "cost_per_unit": "15",
+        "capacity": "560"
+    },
+    {
+        "origin": "fab5",
+        "destination": "assembly2",
+        "product_type": "cpu",
+        "cost_per_unit": "18",
+        "capacity": "590"
+    },
+    {
+        "origin": "fab5",
+        "destination": "assembly3",
+        "product_type": "cpu",
+        "cost_per_unit": "16",
+        "capacity": "530"
+    },
+    {
+        "origin": "fab5",
+        "destination": "assembly4",
+        "product_type": "cpu",
+        "cost_per_unit": "15",
+        "capacity": "570"
+    },
+    {
+        "origin": "fab6",
+        "destination": "assembly1",
+        "product_type": "cpu",
+        "cost_per_unit": "16",
+        "capacity": "580"
+    },
+    {
+        "origin": "fab6",
+        "destination": "assembly2",
+        "product_type": "cpu",
+        "cost_per_unit": "17",
+        "capacity": "600"
+    },
+    {
+        "origin": "fab6",
+        "destination": "assembly3",
+        "product_type": "cpu",
+        "cost_per_unit": "18",
+        "capacity": "560"
+    },
+    {
+        "origin": "fab6",
+        "destination": "assembly4",
+        "product_type": "cpu",
+        "cost_per_unit": "16",
+        "capacity": "590"
+    },
+    {
+        "origin": "fab1",
+        "destination": "assembly1",
+        "product_type": "gpu",
+        "cost_per_unit": "28",
+        "capacity": "520"
+    },
+    {
+        "origin": "fab1",
+        "destination": "assembly2",
+        "product_type": "gpu",
+        "cost_per_unit": "30",
+        "capacity": "540"
+    },
+    {
+        "origin": "fab1",
+        "destination": "assembly3",
+        "product_type": "gpu",
+        "cost_per_unit": "27",
+        "capacity": "500"
+    },
+    {
+        "origin": "fab1",
+        "destination": "assembly4",
+        "product_type": "gpu",
+        "cost_per_unit": "25",
+        "capacity": "530"
+    },
+    {
+        "origin": "fab2",
+        "destination": "assembly1",
+        "product_type": "gpu",
+        "cost_per_unit": "25",
+        "capacity": "530"
+    },
+    {
+        "origin": "fab2",
+        "destination": "assembly2",
+        "product_type": "gpu",
+        "cost_per_unit": "27",
+        "capacity": "550"
+    },
+    {
+        "origin": "fab2",
+        "destination": "assembly3",
+        "product_type": "gpu",
+        "cost_per_unit": "26",
+        "capacity": "510"
+    },
+    {
+        "origin": "fab2",
+        "destination": "assembly4",
+        "product_type": "gpu",
+        "cost_per_unit": "28",
+        "capacity": "540"
+    },
+    {
+        "origin": "fab3",
+        "destination": "assembly1",
+        "product_type": "gpu",
+        "cost_per_unit": "26",
+        "capacity": "505"
+    },
+    {
+        "origin": "fab3",
+        "destination": "assembly2",
+        "product_type": "gpu",
+        "cost_per_unit": "25",
+        "capacity": "565"
+    },
+    {
+        "origin": "fab3",
+        "destination": "assembly3",
+        "product_type": "gpu",
+        "cost_per_unit": "27",
+        "capacity": "485"
+    },
+    {
+        "origin": "fab3",
+        "destination": "assembly4",
+        "product_type": "gpu",
+        "cost_per_unit": "26",
+        "capacity": "525"
+    },
+    {
+        "origin": "fab4",
+        "destination": "assembly1",
+        "product_type": "gpu",
+        "cost_per_unit": "27",
+        "capacity": "545"
+    },
+    {
+        "origin": "fab4",
+        "destination": "assembly2",
+        "product_type": "gpu",
+        "cost_per_unit": "26",
+        "capacity": "575"
+    },
+    {
+        "origin": "fab4",
+        "destination": "assembly3",
+        "product_type": "gpu",
+        "cost_per_unit": "25",
+        "capacity": "495"
+    },
+    {
+        "origin": "fab4",
+        "destination": "assembly4",
+        "product_type": "gpu",
+        "cost_per_unit": "27",
+        "capacity": "535"
+    },
+    {
+        "origin": "fab5",
+        "destination": "assembly1",
+        "product_type": "gpu",
+        "cost_per_unit": "25",
+        "capacity": "490"
+    },
+    {
+        "origin": "fab5",
+        "destination": "assembly2",
+        "product_type": "gpu",
+        "cost_per_unit": "28",
+        "capacity": "520"
+    },
+    {
+        "origin": "fab5",
+        "destination": "assembly3",
+        "product_type": "gpu",
+        "cost_per_unit": "26",
+        "capacity": "470"
+    },
+    {
+        "origin": "fab5",
+        "destination": "assembly4",
+        "product_type": "gpu",
+        "cost_per_unit": "25",
+        "capacity": "510"
+    },
+    {
+        "origin": "fab6",
+        "destination": "assembly1",
+        "product_type": "gpu",
+        "cost_per_unit": "26",
+        "capacity": "515"
+    },
+    {
+        "origin": "fab6",
+        "destination": "assembly2",
+        "product_type": "gpu",
+        "cost_per_unit": "27",
+        "capacity": "535"
+    },
+    {
+        "origin": "fab6",
+        "destination": "assembly3",
+        "product_type": "gpu",
+        "cost_per_unit": "28",
+        "capacity": "485"
+    },
+    {
+        "origin": "fab6",
+        "destination": "assembly4",
+        "product_type": "gpu",
+        "cost_per_unit": "26",
+        "capacity": "525"
+    },
+    {
+        "origin": "assembly1",
+        "destination": "store1",
+        "product_type": "cpu",
+        "cost_per_unit": "8",
+        "capacity": "345"
+    },
+    {
+        "origin": "assembly1",
+        "destination": "store2",
+        "product_type": "cpu",
+        "cost_per_unit": "9",
+        "capacity": "370"
+    },
+    {
+        "origin": "assembly1",
+        "destination": "store3",
+        "product_type": "cpu",
+        "cost_per_unit": "10",
+        "capacity": "390"
+    },
+    {
+        "origin": "assembly1",
+        "destination": "store4",
+        "product_type": "cpu",
+        "cost_per_unit": "9",
+        "capacity": "360"
+    },
+    {
+        "origin": "assembly1",
+        "destination": "store5",
+        "product_type": "cpu",
+        "cost_per_unit": "11",
+        "capacity": "380"
+    },
+    {
+        "origin": "assembly1",
+        "destination": "store6",
+        "product_type": "cpu",
+        "cost_per_unit": "10",
+        "capacity": "395"
+    },
+    {
+        "origin": "assembly2",
+        "destination": "store1",
+        "product_type": "cpu",
+        "cost_per_unit": "8",
+        "capacity": "355"
+    },
+    {
+        "origin": "assembly2",
+        "destination": "store2",
+        "product_type": "cpu",
+        "cost_per_unit": "9",
+        "capacity": "380"
+    },
+    {
+        "origin": "assembly2",
+        "destination": "store3",
+        "product_type": "cpu",
+        "cost_per_unit": "10",
+        "capacity": "400"
+    },
+    {
+        "origin": "assembly2",
+        "destination": "store4",
+        "product_type": "cpu",
+        "cost_per_unit": "9",
+        "capacity": "365"
+    },
+    {
+        "origin": "assembly2",
+        "destination": "store5",
+        "product_type": "cpu",
+        "cost_per_unit": "11",
+        "capacity": "385"
+    },
+    {
+        "origin": "assembly2",
+        "destination": "store6",
+        "product_type": "cpu",
+        "cost_per_unit": "10",
+        "capacity": "405"
+    },
+    {
+        "origin": "assembly3",
+        "destination": "store1",
+        "product_type": "cpu",
+        "cost_per_unit": "9",
+        "capacity": "335"
+    },
+    {
+        "origin": "assembly3",
+        "destination": "store2",
+        "product_type": "cpu",
+        "cost_per_unit": "10",
+        "capacity": "360"
+    },
+    {
+        "origin": "assembly3",
+        "destination": "store3",
+        "product_type": "cpu",
+        "cost_per_unit": "11",
+        "capacity": "380"
+    },
+    {
+        "origin": "assembly3",
+        "destination": "store4",
+        "product_type": "cpu",
+        "cost_per_unit": "10",
+        "capacity": "350"
+    },
+    {
+        "origin": "assembly3",
+        "destination": "store5",
+        "product_type": "cpu",
+        "cost_per_unit": "12",
+        "capacity": "370"
+    },
+    {
+        "origin": "assembly3",
+        "destination": "store6",
+        "product_type": "cpu",
+        "cost_per_unit": "11",
+        "capacity": "385"
+    },
+    {
+        "origin": "assembly4",
+        "destination": "store1",
+        "product_type": "cpu",
+        "cost_per_unit": "8",
+        "capacity": "350"
+    },
+    {
+        "origin": "assembly4",
+        "destination": "store2",
+        "product_type": "cpu",
+        "cost_per_unit": "9",
+        "capacity": "375"
+    },
+    {
+        "origin": "assembly4",
+        "destination": "store3",
+        "product_type": "cpu",
+        "cost_per_unit": "10",
+        "capacity": "395"
+    },
+    {
+        "origin": "assembly4",
+        "destination": "store4",
+        "product_type": "cpu",
+        "cost_per_unit": "9",
+        "capacity": "360"
+    },
+    {
+        "origin": "assembly4",
+        "destination": "store5",
+        "product_type": "cpu",
+        "cost_per_unit": "11",
+        "capacity": "380"
+    },
+    {
+        "origin": "assembly4",
+        "destination": "store6",
+        "product_type": "cpu",
+        "cost_per_unit": "10",
+        "capacity": "400"
+    },
+    {
+        "origin": "assembly1",
+        "destination": "store1",
+        "product_type": "gpu",
+        "cost_per_unit": "15",
+        "capacity": "290"
+    },
+    {
+        "origin": "assembly1",
+        "destination": "store2",
+        "product_type": "gpu",
+        "cost_per_unit": "17",
+        "capacity": "310"
+    },
+    {
+        "origin": "assembly1",
+        "destination": "store3",
+        "product_type": "gpu",
+        "cost_per_unit": "16",
+        "capacity": "335"
+    },
+    {
+        "origin": "assembly1",
+        "destination": "store4",
+        "product_type": "gpu",
+        "cost_per_unit": "15",
+        "capacity": "300"
+    },
+    {
+        "origin": "assembly1",
+        "destination": "store5",
+        "product_type": "gpu",
+        "cost_per_unit": "17",
+        "capacity": "320"
+    },
+    {
+        "origin": "assembly1",
+        "destination": "store6",
+        "product_type": "gpu",
+        "cost_per_unit": "16",
+        "capacity": "340"
+    },
+    {
+        "origin": "assembly2",
+        "destination": "store1",
+        "product_type": "gpu",
+        "cost_per_unit": "14",
+        "capacity": "300"
+    },
+    {
+        "origin": "assembly2",
+        "destination": "store2",
+        "product_type": "gpu",
+        "cost_per_unit": "15",
+        "capacity": "320"
+    },
+    {
+        "origin": "assembly2",
+        "destination": "store3",
+        "product_type": "gpu",
+        "cost_per_unit": "16",
+        "capacity": "345"
+    },
+    {
+        "origin": "assembly2",
+        "destination": "store4",
+        "product_type": "gpu",
+        "cost_per_unit": "15",
+        "capacity": "310"
+    },
+    {
+        "origin": "assembly2",
+        "destination": "store5",
+        "product_type": "gpu",
+        "cost_per_unit": "17",
+        "capacity": "330"
+    },
+    {
+        "origin": "assembly2",
+        "destination": "store6",
+        "product_type": "gpu",
+        "cost_per_unit": "16",
+        "capacity": "350"
+    },
+    {
+        "origin": "assembly3",
+        "destination": "store1",
+        "product_type": "gpu",
+        "cost_per_unit": "15",
+        "capacity": "280"
+    },
+    {
+        "origin": "assembly3",
+        "destination": "store2",
+        "product_type": "gpu",
+        "cost_per_unit": "16",
+        "capacity": "300"
+    },
+    {
+        "origin": "assembly3",
+        "destination": "store3",
+        "product_type": "gpu",
+        "cost_per_unit": "17",
+        "capacity": "325"
+    },
+    {
+        "origin": "assembly3",
+        "destination": "store4",
+        "product_type": "gpu",
+        "cost_per_unit": "16",
+        "capacity": "290"
+    },
+    {
+        "origin": "assembly3",
+        "destination": "store5",
+        "product_type": "gpu",
+        "cost_per_unit": "18",
+        "capacity": "310"
+    },
+    {
+        "origin": "assembly3",
+        "destination": "store6",
+        "product_type": "gpu",
+        "cost_per_unit": "17",
+        "capacity": "330"
+    },
+    {
+        "origin": "assembly4",
+        "destination": "store1",
+        "product_type": "gpu",
+        "cost_per_unit": "14",
+        "capacity": "295"
+    },
+    {
+        "origin": "assembly4",
+        "destination": "store2",
+        "product_type": "gpu",
+        "cost_per_unit": "15",
+        "capacity": "315"
+    },
+    {
+        "origin": "assembly4",
+        "destination": "store3",
+        "product_type": "gpu",
+        "cost_per_unit": "16",
+        "capacity": "340"
+    },
+    {
+        "origin": "assembly4",
+        "destination": "store4",
+        "product_type": "gpu",
+        "cost_per_unit": "15",
+        "capacity": "305"
+    },
+    {
+        "origin": "assembly4",
+        "destination": "store5",
+        "product_type": "gpu",
+        "cost_per_unit": "17",
+        "capacity": "325"
+    },
+    {
+        "origin": "assembly4",
+        "destination": "store6",
+        "product_type": "gpu",
+        "cost_per_unit": "16",
+        "capacity": "345"
+    }
+]

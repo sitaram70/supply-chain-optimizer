@@ -1,0 +1,78 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: supply_chain_analytics
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - superset_network
+
+  redis:
+    image: redis:7
+    container_name: superset_cache
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    networks:
+      - superset_network
+
+  superset:
+    image: apache/superset:latest
+    container_name: superset_app
+    depends_on:
+      - db
+      - redis
+    ports:
+      - "8088:8088"
+    environment:
+      - SUPERSET_SECRET_KEY=your_secret_key_here
+      - SQLALCHEMY_DATABASE_URI=postgresql://postgres:postgres@db:5432/supply_chain_analytics
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - PYTHONPATH=/app/pythonpath
+      - SUPERSET_LOAD_EXAMPLES=no
+    volumes:
+      - ./superset_config.py:/app/pythonpath/superset_config.py
+      - superset_home:/app/superset_home
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8088/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - superset_network
+    command: ["/app/docker/docker-bootstrap.sh", "app-gunicorn"]
+
+  superset-init:
+    image: apache/superset:latest
+    container_name: superset_init
+    depends_on:
+      - db
+    environment:
+      - SUPERSET_SECRET_KEY=your_secret_key_here
+      - SQLALCHEMY_DATABASE_URI=postgresql://postgres:postgres@db:5432/supply_chain_analytics
+    volumes:
+      - ./superset_config.py:/app/pythonpath/superset_config.py
+    command: ["/app/docker/docker-init.sh"]
+    networks:
+      - superset_network
+
+networks:
+  superset_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  superset_home: 
