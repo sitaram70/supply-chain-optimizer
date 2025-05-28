@@ -12,6 +12,17 @@ from utils import OptiChat_workflow_exp
 from pyomo.opt import TerminationCondition
 import json
 import ast
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
+from Feas.supply_chain_model import (
+    create_model, 
+    handle_visualization_request, 
+    handle_model_operations,
+    handle_analysis_request,
+    SupplyChainAnalyzer,
+    SupplyChainVisualizer
+)
 
 
 def string_generator(long_string, chunk_size=50):
@@ -87,16 +98,21 @@ def process():
         return
 
     data = json.load(uploaded_json_file)
+    # Store data in session state
+    st.session_state['data'] = data
+    
     models_dict, code = initial_loading(uploaded_file, data)
 
     with st.chat_message("user"):
         st.markdown("I have uploaded a Pyomo model.")
     st.session_state.messages.append({"role": "user", "content": "I have uploaded a Pyomo model."})
+    
     # interpret the model components
     models_dict, cnt, completion = st.session_state.Interpreter.generate_interpretation_exp(st.session_state,
                                                                                             models_dict, code)
     st.session_state['models_dict'] = models_dict
     st.session_state['code'] = code
+    
     # update model representation with component descriptions
     update_model_representation(st.session_state.models_dict)
     # illustrate the model
@@ -152,6 +168,9 @@ def load_json():
         return
 
     data = json.load(uploaded_json_file)
+    # Store data in session state
+    st.session_state['data'] = data
+    
     models_dict, code = initial_loading(uploaded_file, data)
 
     with st.chat_message("user"):
@@ -245,30 +264,178 @@ else:
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
+        if "visualization" in message:
+            if message["visualization"] == "heatmap":
+                visualizer = SupplyChainVisualizer()
+                fig = visualizer.create_facility_heatmap(st.session_state.models_dict)
+                st.pyplot(fig)
+            
+            if "analysis" in message:
+                analysis = message["analysis"]
+                st.write("\n### Capacity Analysis")
+                st.write(f"**CPU Capacity vs Demand:**")
+                st.write(f"- Total Capacity: {analysis['cpu']['capacity']:,.0f} units")
+                st.write(f"- Total Demand: {analysis['cpu']['demand']:,.0f} units")
+                if analysis['cpu']['capacity'] > 0:
+                    st.write(f"- Utilization: {analysis['cpu']['utilization']:.1f}%")
+                else:
+                    st.write("- Utilization: N/A (No capacity available)")
+                
+                st.write(f"\n**GPU Capacity vs Demand:**")
+                st.write(f"- Total Capacity: {analysis['gpu']['capacity']:,.0f} units")
+                st.write(f"- Total Demand: {analysis['gpu']['demand']:,.0f} units")
+                if analysis['gpu']['capacity'] > 0:
+                    st.write(f"- Utilization: {analysis['gpu']['utilization']:.1f}%")
+                else:
+                    st.write("- Utilization: N/A (No capacity available)")
 
-# Accept user input
-if prompt := st.chat_input("Enter your query here..."):
+def handle_user_input(prompt):
+    # Check if data and model are loaded
+    if 'data' not in st.session_state:
+        st.error("Please upload your model and data files first.")
+        return
+
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
 
-    updated_messages, team_conversation = OptiChat_workflow_exp(st.session_state,
-                                                                st.session_state.Coordinator,
-                                                                st.session_state.Engineer,
-                                                                st.session_state.Explainer,
-                                                                st.session_state.messages,
-                                                                st.session_state.models_dict)
-    print('OptiChat_out:', updated_messages)
-    st.session_state.messages = updated_messages
+    # Create or update models_dict structure for visualization
+    if 'models_dict' not in st.session_state:
+        st.session_state.models_dict = {}
+    
+    # Convert string tuple keys to actual tuples for all data
+    demand_data = {}
+    fab_capacity_data = {}
+    trans_cost_data = {}
+    revenue_data = {}
+    
+    # Process Demand data
+    for key, value in st.session_state['data']['Demand'].items():
+        if isinstance(key, tuple):
+            tuple_key = key
+        else:
+            try:
+                tuple_key = ast.literal_eval(key)
+            except:
+                clean_key = key.strip("()' ").split("', '")
+                tuple_key = tuple(clean_key)
+        demand_data[tuple_key] = value
 
-    # # update detailed chat history
-    # st.session_state.chat_history.append("user: " + prompt)
-    # st.session_state.chat_history.append("assistant: " + OptiChat_out)
+    # Process Revenue data
+    for key, value in st.session_state['data']['Revenue'].items():
+        if isinstance(key, tuple):
+            tuple_key = key
+        else:
+            try:
+                tuple_key = ast.literal_eval(key)
+            except:
+                clean_key = key.strip("()' ").split("', '")
+                tuple_key = tuple(clean_key)
+        revenue_data[tuple_key] = value
 
-    # st.session_state.detailed_chat_history.append("user: " + prompt)
-    # for message in st.session_state.team_conversation:
-    #     st.session_state.detailed_chat_history.append(f"***{message['agent_name']}***: {message['agent_response']}")
-    # st.session_state.detailed_chat_history.append("assistant: " + OptiChat_out)
+    # Process FabCapacity data
+    for key, value in st.session_state['data']['FabCapacity'].items():
+        if isinstance(key, tuple):
+            tuple_key = key
+        else:
+            try:
+                tuple_key = ast.literal_eval(key)
+            except:
+                clean_key = key.strip("()' ").split("', '")
+                tuple_key = tuple(clean_key)
+        fab_capacity_data[tuple_key] = value
+
+    # Process TransCost data
+    for key, value in st.session_state['data']['TransCost'].items():
+        if isinstance(key, tuple):
+            tuple_key = key
+        else:
+            try:
+                tuple_key = ast.literal_eval(key)
+            except:
+                clean_key = key.strip("()' ").split("', '")
+                tuple_key = tuple(clean_key)
+        trans_cost_data[tuple_key] = value
+
+    # Create the models_dict with proper data structure
+    st.session_state.models_dict['model_1'] = {
+        'Sets': {
+            'Stores': st.session_state['data']['Stores'],
+            'Products': st.session_state['data']['Products'],
+            'Fabs': [f for f in st.session_state['data']['Fabs'] if f.startswith('fab')],
+            'Assemblies': st.session_state['data']['Assemblies']
+        },
+        'Parameters': {
+            'Demand': demand_data,
+            'Revenue': revenue_data,
+            'FabCapacity': fab_capacity_data,
+            'TransCost': trans_cost_data
+        }
+    }
+
+    # Define visualization keywords and their corresponding functions
+    visualization_types = {
+        "heatmap": ["heatmap", "capacity distribution", "facility capacity"],
+        "demand": ["demand distribution", "demand pattern", "show demand"],
+        "production": ["production allocation", "production distribution"],
+        "transportation": ["transportation cost", "shipping cost", "logistics cost"],
+        "sunburst": ["sunburst", "utilization breakdown", "capacity utilization"],
+        "flow": ["supply chain flow", "material flow", "sankey"]
+    }
+
+    # Check for visualization requests
+    prompt_lower = prompt.lower()
+    visualization_requested = False
+    
+    for viz_type, keywords in visualization_types.items():
+        if any(keyword in prompt_lower for keyword in keywords):
+            visualization_requested = True
+            response = handle_visualization_request(viz_type, st.session_state.models_dict)
+            with st.chat_message("assistant"):
+                st.markdown(response)
+            st.session_state.messages.append({"role": "assistant", "content": response})
+            break
+
+    # If not a visualization request, check for analysis requests
+    if not visualization_requested:
+        analysis_keywords = [
+            "profitability", "profit", "revenue", "store performance",
+            "price", "pricing", "optimization",
+            "transportation", "shipping", "logistics",
+            "production", "allocation", "capacity"
+        ]
+
+        if any(keyword in prompt_lower for keyword in analysis_keywords):
+            response = handle_analysis_request(prompt, st.session_state.models_dict)
+            with st.chat_message("assistant"):
+                st.markdown(response)
+            st.session_state.messages.append({"role": "assistant", "content": response})
+        else:
+            # Handle other types of requests using existing workflow
+            updated_messages, team_conversation = OptiChat_workflow_exp(
+                st.session_state,
+                st.session_state.Coordinator,
+                st.session_state.Engineer,
+                st.session_state.Explainer,
+                st.session_state.messages,
+                st.session_state.models_dict
+            )
+            st.session_state.messages = updated_messages
+
+# Add analysis buttons to sidebar
+st.sidebar.markdown("### Supply Chain Analysis")
+if st.sidebar.button("Analyze Store Profitability"):
+    handle_user_input("Show store profitability analysis")
+if st.sidebar.button("Optimize Pricing"):
+    handle_user_input("Analyze pricing opportunities")
+if st.sidebar.button("Optimize Transportation"):
+    handle_user_input("Analyze transportation costs")
+if st.sidebar.button("Optimize Production"):
+    handle_user_input("Show production allocation analysis")
+
+# Accept user input
+if prompt := st.chat_input("Enter your query here..."):
+    handle_user_input(prompt)
 
 
 def tuple_keys(d):
@@ -305,3 +472,152 @@ def create_model(data):
 
     # ... rest of your code ...
     return model
+
+def plot_demand_distribution(model):
+    stores = list(model.Stores)
+    products = list(model.Products)
+    
+    # Collect data
+    demand_data = {s: [value(model.Demand[s, p]) for p in products] for s in stores}
+    
+    # Plot
+    fig, ax = plt.subplots()
+    for s, demands in demand_data.items():
+        ax.plot(products, demands, marker='o', label=s)
+    
+    ax.set_xlabel('Products')
+    ax.set_ylabel('Demand')
+    ax.set_title('Demand Distribution by Store')
+    ax.legend()
+    
+    # Display the plot in Streamlit
+    st.pyplot(fig)
+
+def handle_visualization(request):
+    if 'data' not in st.session_state:
+        st.error("Please upload your model and data first.")
+        return
+    
+    # Create a models_dict structure as expected by the visualization functions
+    models_dict = {
+        'model_1': {
+            'Sets': {
+                'Stores': st.session_state['data']['Stores'],
+                'Products': st.session_state['data']['Products'],
+                'Fabs': [f for f in st.session_state['data']['Fabs'] if f.startswith('fab')]
+            },
+            'Parameters': {
+                'Demand': st.session_state['data']['Demand']
+            }
+        }
+    }
+    
+    response = handle_visualization_request(request, models_dict)
+    st.write(response)
+
+# Add visualization buttons
+st.sidebar.markdown("### Visualizations")
+if st.sidebar.button("Show Demand Distribution"):
+    handle_visualization("show demand patterns")
+if st.sidebar.button("Show Production by Fab"):
+    handle_visualization("show production by fab")
+
+def create_capacity_heatmap():
+    # Filter only manufacturing facilities (fab1-fab6)
+    fabs = [f for f in st.session_state['data']['Fabs'] if f.startswith('fab')]
+    products = st.session_state['data']['Products']
+
+    # Create capacity matrix
+    capacity_matrix = np.zeros((len(fabs), len(products)))
+    for i, fab in enumerate(fabs):
+        for j, product in enumerate(products):
+            # Try different key formats since JSON might store tuples differently
+            possible_keys = [
+                f"('{fab}', '{product}')",  # Original format
+                f"({fab}, {product})",      # Without quotes
+                str((fab, product)),        # Python tuple string
+                f"{fab},{product}"          # Simple comma format
+            ]
+            
+            # Try to find the capacity value using different key formats
+            capacity_value = 0
+            for key in possible_keys:
+                if key in st.session_state['data']['FabCapacity']:
+                    capacity_value = float(st.session_state['data']['FabCapacity'][key])
+                    break
+                # Also check if the key exists as a tuple
+                elif (fab, product) in st.session_state['data']['FabCapacity']:
+                    capacity_value = float(st.session_state['data']['FabCapacity'][(fab, product)])
+                    break
+            
+            capacity_matrix[i, j] = capacity_value
+    
+    # Debug information
+    st.write("### Debug Information")
+    st.write("FabCapacity Data Structure:")
+    st.write(st.session_state['data']['FabCapacity'])
+    
+    # Create and display heatmap
+    fig, ax = plt.subplots(figsize=(12, 8))
+    heatmap = sns.heatmap(capacity_matrix, 
+                         annot=True, 
+                         fmt='.0f', 
+                         cmap='YlOrRd',
+                         xticklabels=[p.upper() for p in products], 
+                         yticklabels=fabs,
+                         cbar_kws={'label': 'Capacity Units'})
+    
+    plt.title('Manufacturing Facility Capacity Distribution', pad=20)
+    plt.xlabel('Products', labelpad=10)
+    plt.ylabel('Facilities', labelpad=10)
+    plt.xticks(rotation=0)
+    plt.yticks(rotation=0)
+    plt.tight_layout()
+    
+    st.pyplot(fig)
+    plt.close()
+
+    # Add capacity analysis
+    total_cpu_capacity = sum(float(st.session_state['data']['FabCapacity'].get(f"('fab{i}', 'cpu')", 0)) for i in range(1, 7))
+    total_gpu_capacity = sum(float(st.session_state['data']['FabCapacity'].get(f"('fab{i}', 'gpu')", 0)) for i in range(1, 7))
+    total_cpu_demand = sum(float(st.session_state['data']['Demand'].get(f"('store{i}', 'cpu')", 0)) for i in range(1, 7))
+    total_gpu_demand = sum(float(st.session_state['data']['Demand'].get(f"('store{i}', 'gpu')", 0)) for i in range(1, 7))
+
+    st.write("\n### Capacity Analysis")
+    st.write(f"**CPU Capacity vs Demand:**")
+    st.write(f"- Total Capacity: {total_cpu_capacity:,.0f} units")
+    st.write(f"- Total Demand: {total_cpu_demand:,.0f} units")
+    if total_cpu_capacity > 0:
+        st.write(f"- Utilization: {(total_cpu_demand/total_cpu_capacity*100):.1f}%")
+    else:
+        st.write("- Utilization: N/A (No capacity available)")
+    
+    st.write(f"\n**GPU Capacity vs Demand:**")
+    st.write(f"- Total Capacity: {total_gpu_capacity:,.0f} units")
+    st.write(f"- Total Demand: {total_gpu_demand:,.0f} units")
+    if total_gpu_capacity > 0:
+        st.write(f"- Utilization: {(total_gpu_demand/total_gpu_capacity*100):.1f}%")
+    else:
+        st.write("- Utilization: N/A (No capacity available)")
+
+    return fig
+
+def create_capacity_analysis():
+    total_cpu_capacity = sum(float(st.session_state['data']['FabCapacity'].get(f"('fab{i}', 'cpu')", 0)) for i in range(1, 7))
+    total_gpu_capacity = sum(float(st.session_state['data']['FabCapacity'].get(f"('fab{i}', 'gpu')", 0)) for i in range(1, 7))
+    total_cpu_demand = sum(float(st.session_state['data']['Demand'].get(f"('store{i}', 'cpu')", 0)) for i in range(1, 7))
+    total_gpu_demand = sum(float(st.session_state['data']['Demand'].get(f"('store{i}', 'gpu')", 0)) for i in range(1, 7))
+
+    analysis = {
+        'cpu': {
+            'capacity': total_cpu_capacity,
+            'demand': total_cpu_demand,
+            'utilization': (total_cpu_demand/total_cpu_capacity*100) if total_cpu_capacity > 0 else 0
+        },
+        'gpu': {
+            'capacity': total_gpu_capacity,
+            'demand': total_gpu_demand,
+            'utilization': (total_gpu_demand/total_gpu_capacity*100) if total_gpu_capacity > 0 else 0
+        }
+    }
+    return analysis
